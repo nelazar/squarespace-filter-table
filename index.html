@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <script lang="js">
+
+            data = [
+                {
+                    "school": "Otis",
+                    "typeOfSchool": "Private Art School",
+                    "city": "LA",
+                    "state": "CA",
+                    "artSchoolSize": 1200,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.83
+                },
+                {
+                    "school": "Art Center",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Pasedena",
+                    "state": "CA",
+                    "artSchoolSize": 2300,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.7
+                },
+                {
+                    "school": "CCA",
+                    "typeOfSchool": "Private Art School",
+                    "city": "San Francisco",
+                    "state": "CA",
+                    "artSchoolSize": 1300,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.76
+                },
+                {
+                    "school": "Laguna",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Laguna Beach",
+                    "state": "CA",
+                    "artSchoolSize": 766,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.5
+                },
+                {
+                    "school": "Art Academy of San Francisco",
+                    "typeOfSchool": "Private Art School",
+                    "city": "San Fran",
+                    "state": "CA",
+                    "artSchoolSize": 7805,
+                    "degree": "online and in person ",
+                    "acceptanceRate": 1
+                },
+                {
+                    "school": "Rocky Mountain College of Art ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Denver ",
+                    "state": "CO",
+                    "artSchoolSize": 1000,
+                    "degree": "online and in person ",
+                    "acceptanceRate": 1
+                },
+                {
+                    "school": "George Washington/ Corcoran",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Washington",
+                    "state": "DC",
+                    "overallSize": 26000,
+                    "artSchoolSize": 300,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.43
+                },
+                {
+                    "school": "Ringling",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Sarasota",
+                    "state": "FL",
+                    "artSchoolSize": 1700,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.6
+                },
+                {
+                    "school": "Full Sail ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Winter Park",
+                    "state": "FL",
+                    "artSchoolSize": 25000,
+                    "degree": "online and in person ",
+                    "acceptanceRate": 1
+                },
+                {
+                    "school": "SCAD",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Savannah and Atlanta",
+                    "state": "GA",
+                    "artSchoolSize": 16000,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.72
+                },
+                {
+                    "school": "The Art Institute of Atlanta ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Atlanta",
+                    "state": "GA",
+                    "artSchoolSize": 600,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.45
+                },
+                {
+                    "school": "SAIC",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Chicago",
+                    "state": "IL",
+                    "artSchoolSize": 3500,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.7
+                },
+                {
+                    "school": "Columbia College of Chicago ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Chicago",
+                    "state": "IL",
+                    "artSchoolSize": 6498,
+                    "degree": "many BFA",
+                    "acceptanceRate": 1
+                },
+                {
+                    "school": "TUFTS/ SMFA",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Boston",
+                    "state": "MA",
+                    "overallSize": 14000,
+                    "artSchoolSize": 300,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.14
+                },
+                {
+                    "school": "MASS ART ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Boston",
+                    "state": "MA",
+                    "artSchoolSize": 1700,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.79
+                },
+                {
+                    "school": "Montserrat College of Art ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Boston",
+                    "state": "MA",
+                    "artSchoolSize": 341,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.79
+                },
+                {
+                    "school": "Maryland Institute College of ART ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Baltimore",
+                    "state": "MD",
+                    "artSchoolSize": 2000,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.79
+                },
+                {
+                    "school": "Maine College of Art ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Portland",
+                    "state": "ME",
+                    "artSchoolSize": 500,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.74
+                },
+                {
+                    "school": "College of Creative Studies ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Detroit",
+                    "state": "MI",
+                    "artSchoolSize": 1600,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.49
+                },
+                {
+                    "school": "Cranbrook",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Bloomfield HIlls",
+                    "state": "MI",
+                    "artSchoolSize": 129,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.47
+                },
+                {
+                    "school": "Minneapolis College of Art ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Minneapolis",
+                    "state": "MN",
+                    "artSchoolSize": 800,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.57
+                },
+                {
+                    "school": "Kansas City Art Instiute",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Kansas City",
+                    "state": "MO",
+                    "artSchoolSize": 750,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.6
+                },
+                {
+                    "school": "PRATT",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Brooklyn, additional campus out of the city",
+                    "state": "NY",
+                    "artSchoolSize": 4500,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.62
+                },
+                {
+                    "school": "SVA",
+                    "typeOfSchool": "Private Art School",
+                    "city": "NYC",
+                    "state": "NY",
+                    "artSchoolSize": 4200,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.71
+                },
+                {
+                    "school": "Parsons",
+                    "typeOfSchool": "Private Art School",
+                    "city": "NYC",
+                    "state": "NY",
+                    "artSchoolSize": 5800,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.5
+                },
+                {
+                    "school": "Cooper Union",
+                    "typeOfSchool": "Private Art School",
+                    "city": "NYC",
+                    "state": "NY",
+                    "artSchoolSize": 870,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.14
+                },
+                {
+                    "school": "FIT",
+                    "typeOfSchool": "Private Art School",
+                    "city": "NYC",
+                    "state": "NY",
+                    "artSchoolSize": 8000,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.53
+                },
+                {
+                    "school": "Columbus College of Art ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Columbus",
+                    "state": "OH",
+                    "artSchoolSize": 1000,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.9
+                },
+                {
+                    "school": "Cleveland College of Art ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Cleveland",
+                    "state": "OH",
+                    "artSchoolSize": 580,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.71
+                },
+                {
+                    "school": "Pennsylvania College of Art",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Lancaster ",
+                    "state": "PA",
+                    "artSchoolSize": 228,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.43
+                },
+                {
+                    "school": "Moore College of Art ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Philadelphia ",
+                    "state": "PA",
+                    "artSchoolSize": 400,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.58
+                },
+                {
+                    "school": "PAFA",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Philadelphia ",
+                    "state": "PA",
+                    "artSchoolSize": 180,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.91
+                },
+                {
+                    "school": "The University of the Arts ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Philadelphia",
+                    "state": "PA",
+                    "artSchoolSize": 1500,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.85
+                },
+                {
+                    "school": "RISD",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Providence",
+                    "state": "RI",
+                    "artSchoolSize": 2500,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.17
+                },
+                {
+                    "school": "Northwest College of Art and Design ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Tacoma",
+                    "state": "WA",
+                    "artSchoolSize": 1500,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.71
+                },
+                {
+                    "school": "Cornish College of Art ",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Seattle",
+                    "state": "WA",
+                    "artSchoolSize": 455,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.71
+                },
+                {
+                    "school": "Milwaukee Institute of art and design",
+                    "typeOfSchool": "Private Art School",
+                    "city": "Milwaukee",
+                    "state": "WI",
+                    "artSchoolSize": 800,
+                    "degree": "many BFA",
+                    "acceptanceRate": 0.63
+                }
+            ]
+
+            function showTable() {
+                createTable(data)
+            }
+
+            function createTable(data) {
+                let columns = [
+                    {title: 'School', property: 'school'},
+                    {title: 'Type of School', property: 'typeOfSchool'},
+                    {title: 'City', property: 'city'},
+                    {title: 'State', property: 'state'},
+                    {title: 'Overall Size', property: 'overallSize'},
+                    {title: 'Art School Size', property: 'artSchoolSize'},
+                    {title: 'Test Reporting', property: 'testReporting'},
+                    {title: 'Graduate Program', property: 'graduateProgram'},
+                    {title: 'Degree', property: 'degree'},
+                    {title: 'Acceptance Rate', property: 'acceptanceRate'},
+                ];
+
+                var table = '<table border=1>';
+                
+                table += '<tr>';
+                for (const column of columns) {
+                    table += `<th>${column.title}</th>`;
+                }
+                table += '</tr>';
+
+                for (const school of data) {
+                    var tr = '<tr>';
+                    for (const column of columns) {
+                        if (Object.hasOwn(school, column.property)) {
+                            var value;
+                            if (column.property == 'acceptanceRate') {
+                                value = Math.round(school[column.property] * 100)
+                                value = value.toString() + '%'
+                            } else {
+                                value = school[column.property]
+                            }
+                            tr += `<td>${value}</td>`
+                        } else {
+                            tr += '<td></td>'
+                        }
+                    }
+                    tr += '</tr>'
+                    table += tr
+                }
+
+                table += "</table>";
+
+                document.getElementById('table').innerHTML = table;
+            }
+
+            function updateTable() {
+                var sort = document.querySelector('input[name="sort"]:checked').value;
+                
+                if (sort == 'alphabetic') {
+                    data.sort((a, b) => a.school.localeCompare(b.school));
+                } else if (sort == 'state') {
+                    data.sort((a, b) => a.state.localeCompare(b.state));
+                } else if (sort == 'overallsize') {
+                    data.sort((a, b) => parseInt(a.overallSize) - parseInt(b.overallSize));
+                } else if (sort == 'artsize') {
+                    data.sort((a, b) => parseInt(a.artSchoolSize) - parseInt(b.artSchoolSize));
+                } else if (sort == 'acceptancerate') {
+                    data.sort((a, b) => parseFloat(a.acceptanceRate) - parseFloat(b.acceptanceRate));
+                }
+
+                createTable(data);
+            }
+
+        </script>
+    </head>
+
+    <body onload="showTable()">
+
+        <div id="filter">
+
+            <form>
+                
+                <input type="radio" id="alphabetic" name="sort" value="alphabetic" onchange="updateTable()">
+                <label for="alphabetic">Alphabetic</label><br>
+                <input type="radio" id="state" name="sort" value="state" onchange="updateTable()">
+                <label for="state">State (A-Z)</label><br>
+                <input type="radio" id="overallsize" name="sort" value="overallsize" onchange="updateTable()">
+                <label for="overallsize">Overall Size</label><br>
+                <input type="radio" id="artsize" name="sort" value="artsize" onchange="updateTable()">
+                <label for="artsize">Art School Size</label><br>
+                <input type="radio" id="acceptancerate" name="sort" value="acceptancerate" onchange="updateTable()">
+                <label for="acceptancerate">Acceptance Rate</label><br>
+
+                <br>
+
+
+
+            </form>
+
+        </div>
+
+        <div id="table"></div>
+
+    </body>
+
+</html>
