@@ -4,7 +4,7 @@
     <head>
         <script lang="js">
 
-            data = [
+            var data = [
                 {
                     "school": "Otis",
                     "typeOfSchool": "Private Art School",
@@ -341,9 +341,34 @@
                     "acceptanceRate": 0.63
                 }
             ]
+            
+            const region_codes = {
+                northeast: ['CT', 'DC', 'DE', 'MA', 'MD', 'ME', 'NH', 'NJ', 'NY', 'PA', 'RI', 'VT'],
+                southeast: ['AL', 'AR', 'FL', 'GA', 'KY', 'LA', 'MS', 'NC', 'SC', 'TN', 'VA', 'WV'],
+                midwest: ['IA', 'IL', 'IN', 'KS', 'MI', 'MN', 'MO', 'ND', 'NE', 'OH', 'SD', 'WI'],
+                rockies: ['CO', 'ID', 'MT', 'NV', 'UT', 'WY'],
+                southwest: ['AZ', 'NM', 'OK', 'TX'],
+                pacific: ['AK', 'CA', 'HI', 'OR', 'WA']
+            }
 
-            function showTable() {
-                createTable(data)
+            const overall_sizes = {
+                verysmall: {min: 0, max: 999},
+                small: {min: 1000, max: 4999},
+                medium: {min: 5000, max: 9999},
+                large: {min: 10000, max: Number.MAX_VALUE}
+            }
+
+            const art_sizes = {
+                verysmall: {min: 0, max: 499},
+                small: {min: 500, max: 999},
+                medium: {min: 1000, max: 4999},
+                large: {min: 5000, max: Number.MAX_VALUE}
+            }
+
+            const acceptance_rates = {
+                low: {min: 0, max: 0.24},
+                moderate: {min: 0.25, max: 0.49},
+                high: {min: 0.5, max: 1}
             }
 
             function createTable(data) {
@@ -388,9 +413,49 @@
                     table += tr
                 }
 
+                if (data.length == 0) {
+                    table += `<tr><td colspan=${columns.length}>No schools match your filters.</td></tr>`
+                }
+
                 table += "</table>";
 
                 document.getElementById('table').innerHTML = table;
+            }
+
+            function filterRegions(school, regions) {
+                for (const region in region_codes) {
+                    if (region_codes.hasOwnProperty(region) && regions.includes(region)) {
+                        if (region_codes[region].includes(school.state)) return true;
+                    }
+                }
+                return false;
+            }
+
+            function filterOverall(school, sizes) {
+                for (const size in overall_sizes) {
+                    if (overall_sizes.hasOwnProperty(size) && sizes.includes(size)) {
+                        if (overall_sizes[size].min <= school.overallSize && overall_sizes[size].max >= school.overallSize) return true;
+                    }
+                }
+                return false;
+            }
+
+            function filterArt(school, sizes) {
+                for (const size in art_sizes) {
+                    if (art_sizes.hasOwnProperty(size) && sizes.includes(size)) {
+                        if (art_sizes[size].min <= school.artSchoolSize && art_sizes[size].max >= school.artSchoolSize) return true;
+                    }
+                }
+                return false;
+            }
+
+            function filterAcceptance(school, rates) {
+                for (const rate in acceptance_rates) {
+                    if (acceptance_rates.hasOwnProperty(rate) && rates.includes(rate)) {
+                        if (acceptance_rates[rate].min <= school.acceptanceRate && acceptance_rates[rate].max >= school.acceptanceRate) return true;
+                    }
+                }
+                return false;
             }
 
             function updateTable() {
@@ -408,32 +473,197 @@
                     data.sort((a, b) => parseFloat(a.acceptanceRate) - parseFloat(b.acceptanceRate));
                 }
 
-                createTable(data);
+                var types_of_school = [];
+                if (document.getElementById('privateartschool').checked)
+                    types_of_school.push('Private Art School');
+                if (document.getElementById('university').checked)
+                    types_of_school.push('University');
+                if (document.getElementById('liberalarts').checked)
+                    types_of_school.push('Liberal Arts College');
+
+                var regions = [];
+                if (document.getElementById('northeast').checked)
+                    regions.push('northeast');
+                if (document.getElementById('southeast').checked)
+                    regions.push('southeast');
+                if (document.getElementById('midwest').checked)
+                    regions.push('midwest');
+                if (document.getElementById('rockies').checked)
+                    regions.push('rockies');
+                if (document.getElementById('southwest').checked)
+                    regions.push('southwest');
+                if (document.getElementById('pacific').checked)
+                    regions.push('pacific');
+
+                var overall_size = [];
+                if (document.getElementById('verysmall').checked)
+                    overall_size.push('verysmall')
+                if (document.getElementById('small').checked)
+                    overall_size.push('small')
+                if (document.getElementById('medium').checked)
+                    overall_size.push('medium')
+                if (document.getElementById('large').checked)
+                    overall_size.push('large')
+
+                var art_size = [];
+                if (document.getElementById('verysmall-art').checked)
+                    art_size.push('verysmall')
+                if (document.getElementById('small-art').checked)
+                    art_size.push('small')
+                if (document.getElementById('medium-art').checked)
+                    art_size.push('medium')
+                if (document.getElementById('large-art').checked)
+                    art_size.push('large')
+
+                var acceptance_rate = [];
+                if (document.getElementById('low').checked)
+                    acceptance_rate.push('low')
+                if (document.getElementById('moderate').checked)
+                    acceptance_rate.push('moderate')
+                if (document.getElementById('high').checked)
+                    acceptance_rate.push('high')
+
+                console.log(types_of_school)
+                console.log(regions)
+                var filtered_data = data.filter((school) => types_of_school.includes(school.typeOfSchool));
+                filtered_data = filtered_data.filter((school) => filterRegions(school, regions));
+                // filtered_data = filtered_data.filter((school) => filterOverall(school, overall_size));
+                filtered_data = filtered_data.filter((school) => filterArt(school, art_size));
+                filtered_data = filtered_data.filter((school) => filterAcceptance(school, acceptance_rate));
+                createTable(filtered_data);
+            }
+
+            function deselectAll() {
+                document.querySelectorAll('.filter input').forEach(checkbox => {checkbox.checked = false;});
+                updateTable()
+            }
+
+            function selectAll() {
+                document.querySelectorAll('.filter input').forEach(checkbox => {checkbox.checked = true;});
+                updateTable()
+            }
+
+            function selectAny(filter) {
+                if (document.getElementById('any-'+filter).checked) {
+                    document.getElementsByName(filter).forEach(checkbox => {checkbox.checked = true;});
+                } else {
+                    document.getElementsByName(filter).forEach(checkbox => {checkbox.checked = false;});
+                }
+
+                updateTable()
+            }
+
+            function selectFilter(filter) {                   
+                let allSelected = true;
+                for (const checkbox of document.getElementsByName(filter)) {
+                    if (!(checkbox.checked)) allSelected = false;
+                }
+
+                if (allSelected) {
+                    document.getElementById('any-'+filter).checked = true;
+                } else {
+                    document.getElementById('any-'+filter).checked = false;
+                }
+
+                updateTable()
             }
 
         </script>
     </head>
 
-    <body onload="showTable()">
+    <body onload="selectAll()">
 
         <div id="filter">
 
             <form>
-                
-                <input type="radio" id="alphabetic" name="sort" value="alphabetic" onchange="updateTable()">
-                <label for="alphabetic">Alphabetic</label><br>
-                <input type="radio" id="state" name="sort" value="state" onchange="updateTable()">
-                <label for="state">State (A-Z)</label><br>
-                <input type="radio" id="overallsize" name="sort" value="overallsize" onchange="updateTable()">
-                <label for="overallsize">Overall Size</label><br>
-                <input type="radio" id="artsize" name="sort" value="artsize" onchange="updateTable()">
-                <label for="artsize">Art School Size</label><br>
-                <input type="radio" id="acceptancerate" name="sort" value="acceptancerate" onchange="updateTable()">
-                <label for="acceptancerate">Acceptance Rate</label><br>
-
+                <fieldset>
+                    <legend>Sort</legend>
+                    <input type="radio" id="alphabetic" name="sort" value="alphabetic" onchange="updateTable()" checked>
+                    <label for="alphabetic">Alphabetic</label><br>
+                    <input type="radio" id="state" name="sort" value="state" onchange="updateTable()">
+                    <label for="state">State (A-Z)</label><br>
+                    <input type="radio" id="overallsize" name="sort" value="overallsize" onchange="updateTable()">
+                    <label for="overallsize">Overall Size</label><br>
+                    <input type="radio" id="artsize" name="sort" value="artsize" onchange="updateTable()">
+                    <label for="artsize">Art School Size</label><br>
+                    <input type="radio" id="acceptancerate" name="sort" value="acceptancerate" onchange="updateTable()">
+                    <label for="acceptancerate">Acceptance Rate</label><br>
+                </fieldset>
                 <br>
 
+                <fieldset class="filter">
+                    <legend>Filter</legend>
 
+                    <fieldset>
+                        <legend>Type of School</legend>
+                        <input type="checkbox" id="any-type" class="any" value="any" onchange="selectAny('type')">
+                        <label for="any-type">Any</label><br>
+                        <input type="checkbox" id="privateartschool" name="type" value="privateartschool" onchange="selectFilter('type')">
+                        <label for="privateartschool">Private Art School</label><br>
+                        <input type="checkbox" id="university" name="type" value="university" onchange="selectFilter('type')">
+                        <label for="university">University</label><br>
+                        <input type="checkbox" id="liberalarts" name="type" value="liberalarts" onchange="selectFilter('type')">
+                        <label for="liberalarts">Liberal Arts College</label>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Region</legend>
+                        <input type="checkbox" id="any-region" class="any" value="any" onchange="selectAny('region')">
+                        <label for="any-region">Any</label><br>
+                        <input type="checkbox" id="northeast" name="region" value="northeast" onchange="selectFilter('region')" checked>
+                        <label for="northeast">North East</label><br>
+                        <input type="checkbox" id="southeast" name="region" value="southeast" onchange="selectFilter('region')" checked>
+                        <label for="southeast">South East</label><br>
+                        <input type="checkbox" id="midwest" name="region" value="midwest" onchange="selectFilter('region')" checked>
+                        <label for="midwest">Midwest</label><br>
+                        <input type="checkbox" id="rockies" name="region" value="rockies" onchange="selectFilter('region')" checked>
+                        <label for="rockies">Rockies</label><br>
+                        <input type="checkbox" id="southwest" name="region" value="southwest" onchange="selectFilter('region')" checked>
+                        <label for="southwest">South West</label><br>
+                        <input type="checkbox" id="pacific" name="region" value="Pacific" onchange="selectFilter('region')" checked>
+                        <label for="pacific">Pacific</label>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Overall Size</legend>
+                        <input type="checkbox" id="any-overallsize" class="any"  value="any" onchange="selectAny('overallsize')">
+                        <label for="any-overallsize">Any</label><br>
+                        <input type="checkbox" id="verysmall" name="overallsize" value="verysmall" onchange="selectFilter('overallsize')" checked>
+                        <label for="verysmall">Very Small (< 1,000)</label><br>
+                        <input type="checkbox" id="small" name="overallsize" value="small" onchange="selectFilter('overallsize')" checked>
+                        <label for="small">Small (1,000 - 4,999)</label><br>
+                        <input type="checkbox" id="medium" name="overallsize" value="medium" onchange="selectFilter('overallsize')" checked>
+                        <label for="medium">Medium (5,000 - 9,999)</label><br>
+                        <input type="checkbox" id="large" name="overallsize" value="large" onchange="selectFilter('overallsize')" checked>
+                        <label for="large">Large (> 10,000)</label><br>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Art School Size</legend>
+                        <input type="checkbox" id="any-artsize" class="any"  value="any" onchange="selectAny('artsize')">
+                        <label for="any-artsize">Any</label><br>
+                        <input type="checkbox" id="verysmall-art" name="artsize" value="verysmall" onchange="selectFilter('artsize')" checked>
+                        <label for="verysmall-art">Very Small (< 500)</label><br>
+                        <input type="checkbox" id="small-art" name="artsize" value="small" onchange="selectFilter('artsize')" checked>
+                        <label for="small-art">Small (500 - 999)</label><br>
+                        <input type="checkbox" id="medium-art" name="artsize" value="medium" onchange="selectFilter('artsize')" checked>
+                        <label for="medium-art">Medium (1,000 - 4,999)</label><br>
+                        <input type="checkbox" id="large-art" name="artsize" value="large" onchange="selectFilter('artsize')" checked>
+                        <label for="large-art">Large (> 5,000)</label><br>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Acceptance Rate</legend>
+                        <input type="checkbox" id="any-acceptancerate" class="any" value="any" onchange="selectAny('acceptancerate')">
+                        <label for="any-acceptancerate">Any</label><br>
+                        <input type="checkbox" id="low" name="acceptancerate" value="low" onchange="selectFilter('acceptancerate')" checked>
+                        <label for="low">Low (< 25%)</label><br>
+                        <input type="checkbox" id="moderate" name="acceptancerate" value="moderate" onchange="selectFilter('acceptancerate')" checked>
+                        <label for="moderate">Moderate (25 - 49%)</label><br>
+                        <input type="checkbox" id="high" name="acceptancerate" value="high" onchange="selectFilter('acceptancerate')" checked>
+                        <label for="high">High (> 50%)</label><br>
+                    </fieldset>
+                </fieldset>
 
             </form>
 
