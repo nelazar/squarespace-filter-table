@@ -4,6 +4,7 @@
     <head>
         <script lang="js">
 
+            // INSERT DATA BELOW
             var data = [
                 {
                     "school": "Otis",
@@ -413,7 +414,8 @@
                     "acceptanceRate": 0.63
                 }
             ]
-            
+            // DATA ENDS HERE
+
             const region_codes = {
                 northeast: ['CT', 'DC', 'DE', 'MA', 'MD', 'ME', 'NH', 'NJ', 'NY', 'PA', 'RI', 'VT'],
                 southeast: ['AL', 'AR', 'FL', 'GA', 'KY', 'LA', 'MS', 'NC', 'SC', 'TN', 'VA', 'WV'],
@@ -652,6 +654,7 @@
 
             body {
                 font-family: 'Inter', sans-serif;
+                line-height: 1.2;
             }
 
             .grid-container {
@@ -664,14 +667,14 @@
             #table {
                 overflow: scroll;
                 height: 97vh;
-                /* width: inherit; */
             }
 
             #sidebar {
                 overflow: scroll;
                 height: 97vh;
                 grid-column-start: 2;
-                width: 300px;
+                width: 225px;
+                font-size: 10pt;
             }
 
             table {
@@ -693,6 +696,7 @@
                 border-bottom: 2px solid black;
                 padding: 5px;
                 background-color: lightgrey;
+                font-size: 12pt;
             }
 
             th.school {
@@ -711,6 +715,7 @@
 
             td a, td a:visited {
                 color: black;
+                text-decoration: underline;
             }
 
             legend {
@@ -723,7 +728,6 @@
 
             label.any {
                 font-weight: bold;
-                /* color: grey; */
             }
 
             input.any {
